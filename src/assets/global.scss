@@ -1,0 +1,35 @@
+$dark: #14181d;
+$navy: #07272b;
+$blue: #293545;
+
+$accent: #0f8394;
+
+$warning: #d81848;
+$light: #cfe9f7;
+$grey: #8d9b9f;
+$black: #000000;
+$white: #ffffff;
+$man: #c0deff;
+$lady: #ffdbf5;
+
+@mixin color($color) {
+	background-color: $color;
+	border: 2px solid darken($color, 10%);
+
+	&:hover {
+		background-color: darken($color, 10%);
+		border-color: darken($color, 20%);
+	}
+
+	&:active {
+		background-color: darken($color, 20%);
+		border-color: darken($color, 30%);
+	}
+}
+
+$tr: all 0.3s ease-in-out;
+
+$font: "Roboto", sans-serif;
+
+$mobile: 767px;
+$tablet: 1023px;
