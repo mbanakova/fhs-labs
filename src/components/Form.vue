@@ -60,6 +60,7 @@ export default {
 			this.id = Math.random().toString(16).slice(2);
 		},
 		async addTemperature() {
+			// валидирует инпут, генерирует id, создаёт объект данных и отправляет на сервер, очищает инпут и выводит маленькое окошко об успехе
 			this.validateData();
 			if (!this.isValid) {
 				return;
@@ -74,6 +75,7 @@ export default {
 
 			await this.$store.dispatch("addTemperature", formData);
 			this.value = null;
+
 			this.showModal = true;
 			setTimeout(() => {
 				this.showModal = false;

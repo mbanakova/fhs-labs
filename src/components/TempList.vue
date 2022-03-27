@@ -8,11 +8,11 @@
 			tag="ul"
 			name="temp-list"
 			class="grid"
-			v-if="displayedList.length > 0"
+			v-if="getTemperatureList.length > 0"
 		>
 			<li
 				class="temp-item temp-list-item"
-				v-for="(item, key) in displayedList"
+				v-for="(item, key) in getTemperatureList"
 				:key="key"
 			>
 				<input
@@ -22,13 +22,10 @@
 					v-model="item.temperature"
 					@change="setNewValue"
 				/>
-
 				<div>{{ item.id }}</div>
-
 				<button class="edit icon-button" @click="editItem(item.id)">
 					<font-awesome icon="floppy-disk" />
 				</button>
-
 				<button class="delete icon-button" @click="deleteItem(item.id)">
 					<font-awesome icon="trash" />
 				</button>
@@ -51,23 +48,13 @@ export default {
 	},
 	computed: {
 		...mapGetters(["getTemperatureList"]),
-		displayedList() {
-			return this.getTemperatureList.slice().sort((item1, item2) => {
-				console.log("sorting: ", item1.index, item1, item2);
-				if (item1.index > item2.index) {
-					return -1;
-				} else {
-					return 1;
-				}
-			});
-		},
 	},
 	methods: {
 		async fetchTemperatureList() {
 			try {
 				await this.$store.dispatch("fetchTemperatureList");
 			} catch (error) {
-				console.log(error);
+				throw new Error(error);
 			}
 		},
 		deleteItem(id) {

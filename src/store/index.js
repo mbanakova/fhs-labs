@@ -40,6 +40,7 @@ export default createStore({
       }
 
       const list = []
+      // добавляет в каждый объект фиксированный индекс, чтобы не брать его из :key
       let i = 0;
       for (const key in responseData) {
 
@@ -51,7 +52,17 @@ export default createStore({
         list.push(item)
         i++;
       }
-      context.commit("fetchTemperatureList", list)
+
+      // сортирует по индексу, чтобы последние данные всегда были вверху, даже если массив менялся
+      let sortedList = list.slice().sort((item1, item2) => {
+        if (item1.index > item2.index) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+      // коммитим массив, где нулевой индекс всегда сверху
+      context.commit("fetchTemperatureList", sortedList)
     },
     async updateList(context, data) {
       const response = await fetch('https://fhslabs-vue-default-rtdb.firebaseio.com/temperature.json', {
