@@ -1,93 +1,27 @@
 <template>
 	<main class="wrapper">
 		<h1>Добавить данные:</h1>
-		<form @submit.prevent="addTemperature">
-			<div class="input-wrap">
-				<input
-					:class="{ invalid: !isValid }"
-					type="number"
-					name="temp"
-					id="temp"
-					placeholder="температура °С"
-					v-model.trim="value"
-					@change="validateData"
-					@blur="clearValidity('temperature')"
-				/>
-				<button @click="validateData" class="icon-button">
-					<font-awesome icon="floppy-disk" />
-				</button>
-			</div>
-			<transition name="slide" appear>
-				<div class="info info--warning" v-if="!isValid">
-					диапазон температур — от {{ min }}°С до {{ max }}°С
-				</div></transition
-			>
-			<transition name="slide" appear>
-				<div class="info" v-if="showModal">Данные добавлены!</div></transition
-			>
-		</form>
+		<Form />
 		<transition name="slide" appear>
 			<div class="clear" v-if="showDel">Список очищен!</div></transition
 		>
-
 		<button class="delete button" @click="clearAll">Удалить все записи</button>
 	</main>
 </template>
 
 <script>
+import Form from "@/components/Form";
 export default {
-	name: "Home",
+	components: {
+		Form,
+	},
 	data() {
 		return {
-			min: -273,
-			max: 5499999999727,
-			value: "",
-			isValid: true,
-			id: "",
 			showModal: false,
 			showDel: false,
 		};
 	},
 	methods: {
-		clearValidity() {
-			this.isValid = true;
-		},
-		validateData() {
-			this.isValid = true;
-			if (this.value === 0) {
-				this.isValid = true;
-			} else if (
-				this.value < this.min ||
-				this.value > this.max ||
-				!this.value
-			) {
-				this.isValid = false;
-			}
-			return this.isValid;
-		},
-		generateId() {
-			this.id = Math.random().toString(16).slice(2);
-		},
-		async addTemperature() {
-			this.validateData();
-			if (!this.isValid) {
-				return;
-			}
-
-			this.generateId();
-
-			const formData = {
-				id: this.id,
-				temperature: this.value,
-			};
-
-			await this.$store.dispatch("addTemperature", formData);
-			this.value = null;
-			this.showModal = true;
-			setTimeout(() => {
-				this.showModal = false;
-			}, 1000);
-		},
 		async clearAll() {
 			await this.$store.dispatch("clearAll", {});
 			this.showDel = true;

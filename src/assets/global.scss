@@ -1,7 +1,6 @@
 $dark: #14181d;
 $navy: #07272b;
 $blue: #293545;
-
 $accent: #0f8394;
 
 $warning: #d81848;
@@ -9,8 +8,6 @@ $light: #cfe9f7;
 $grey: #8d9b9f;
 $black: #000000;
 $white: #ffffff;
-$man: #c0deff;
-$lady: #ffdbf5;
 
 @mixin color($color) {
 	background-color: $color;
@@ -28,8 +25,201 @@ $lady: #ffdbf5;
 }
 
 $tr: all 0.3s ease-in-out;
-
 $font: "Roboto", sans-serif;
 
 $mobile: 767px;
 $tablet: 1023px;
+
+#app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100%;
+	overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+html {
+	font-family: "Roboto", sans-serif;
+}
+
+body {
+	margin: 0;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	font-size: 16px;
+	line-height: 120%;
+}
+
+.wrapper {
+	max-width: 840px;
+	width: 100%;
+	padding: 40px 20px;
+	flex-grow: 1;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	@media (max-width: $mobile) {
+		padding: 20px;
+	}
+}
+
+.route {
+	&-enter-from,
+	&-leave-to {
+		opacity: 0;
+	}
+
+	&-enter-active {
+		transition: all 0.3s ease-out;
+	}
+
+	&-leave-active {
+		transition: all 0.3s ease-in;
+	}
+
+	&-enter-to,
+	&-leave-from {
+		opacity: 1;
+	}
+}
+
+.card {
+	padding: 20px;
+	border-radius: 6px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	background-color: $white;
+}
+
+h1 {
+	margin: 0 auto;
+	font-size: 26px;
+	line-height: 110%;
+	align-self: center;
+
+	@media (max-width: $tablet) {
+		font-size: 28px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 22px;
+	}
+}
+
+h2 {
+	margin: 0 auto;
+	font-size: 24px;
+	line-height: 110%;
+
+	@media (max-width: $tablet) {
+		font-size: 24px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 20px;
+	}
+}
+
+h3 {
+	margin: 0 auto;
+	font-size: 22px;
+	line-height: 110%;
+	@media (max-width: $tablet) {
+		font-size: 20px;
+	}
+
+	@media (max-width: $mobile) {
+		font-size: 16px;
+	}
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+input,
+textarea {
+	display: block;
+	width: 100%;
+	border: 1px solid $accent;
+	color: $accent;
+	font-family: "Roboto", sans-serif;
+	padding: 5px 10px;
+	font-size: 16px;
+	line-height: 20px;
+	transition: $tr;
+}
+
+input.invalid,
+input.invalid:focus {
+	background-color: lighten($warning, 50%);
+	outline: 1px solid $warning;
+}
+
+input:focus {
+	background-color: $light;
+	outline: 1px solid $accent;
+}
+
+.button {
+	@include color($accent);
+	padding: 10px 25px;
+	color: $white;
+	text-decoration: none;
+	font-family: "Roboto", sans-serif;
+	cursor: pointer;
+	transition: $tr;
+
+	&:hover {
+		background-color: darken($accent, 10%);
+	}
+
+	&:active {
+		background-color: darken($accent, 5%);
+	}
+}
+
+.icon-button {
+	padding: 10px 15px;
+	@include color(#0a5a8c);
+	min-width: 50px;
+	min-height: 50px;
+	color: $white;
+	font-size: 20px;
+	cursor: pointer;
+	transition: $tr;
+	display: flex;
+	align-items: center;
+
+	& svg {
+		fill: $white;
+	}
+
+	&:hover {
+		@include color(#09456a);
+	}
+
+	&:active {
+		@include color(#083f62);
+	}
+}
+.input-wrap {
+	display: flex;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+}

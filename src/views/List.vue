@@ -8,7 +8,6 @@
 <script>
 import TempList from "@/components/TempList";
 export default {
-	name: "Home",
 	components: {
 		TempList,
 	},
